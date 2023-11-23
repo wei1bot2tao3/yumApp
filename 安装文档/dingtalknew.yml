@@ -1,0 +1,15 @@
+---
+- name: Remove and copy fail2ban dingtalk action script
+  hosts: bjtu
+  become: yes
+
+  tasks:
+    - name: Remove existing dingtalk.sh on target
+      file:
+        path: /etc/fail2ban/action.d/dingtalk.sh
+        state: absent
+
+    - name: Copy dingtalk.sh from local to target
+      copy:
+        src: /etc/fail2ban/action.d/dingtalk.sh
+        dest: /etc/fail2ban/action.d/dingtalk.sh

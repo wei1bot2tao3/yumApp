@@ -1,0 +1,34 @@
+---
+- name: Install and configure fail2ban
+  hosts: py3
+  become: yes  # Run tasks with sudo
+
+  tasks:
+    - name: Check if fail2ban.service file exists
+      stat:
+        path: /etc/systemd/system/fail2ban.service
+      register: fail2ban_service_file
+
+    - name: Display fail2ban.service file status
+      debug:
+        var: fail2ban_service_file.stat.exists
+
+    - name: Delete fail2ban.service file if it exists
+      file:
+        path: /etc/systemd/system/fail2ban.service
+        state: absent
+      when: fail2ban_service_file.stat.exists | default(false)
+
+    - name: Transfer fail2ban.service from local to /etc/systemd/system/
+      copy:
+        src: /etc/ansible/fail2ban.service
+        dest: /etc/systemd/system/
+    - name: Reload systemd and restart fail2ban
+      become: yes
+      command: "sudo systemctl daemon-reload && sudo systemctl restart fail2ban"
+    - name: Display final status of fail2ban service
+      become: yes
+      command: "sudo systemctl status fail2ban"
+      register: fail2ban_status
+    - debug:
+        var: fail2ban_status.stdout_lines

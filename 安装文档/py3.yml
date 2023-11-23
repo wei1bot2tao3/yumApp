@@ -1,0 +1,53 @@
+---
+- name: Configure and install fail2ban
+  hosts: py3
+  become: yes
+
+  tasks:
+    - name: Install fail2ban
+      become_user: root
+      shell: sudo python3 setup.py install
+      args:
+        chdir: /root/op/fail2ban
+
+    - name: Copy jail.conf to jail.local
+      become_user: root
+      copy:
+        src: /etc/fail2ban/jail.conf
+        dest: /etc/fail2ban/jail.local
+
+    - name: Copy fail2ban.service to systemd directory
+      become_user: root
+      copy:
+        src: /root/op/fail2ban/build/fail2ban.service
+        dest: /etc/systemd/system/
+
+    - name: Copy ding.conf to action.d
+      become_user: root
+      copy:
+        src: /etc/fail2ban/action.d/ding.conf
+        dest: /etc/fail2ban/action.d/
+
+    - name: Copy dingtalk.sh to action.d
+      become_user: root
+      copy:
+        src: /etc/fail2ban/action.d/dingtalk.sh
+        dest: /etc/fail2ban/action.d/
+
+    - name: Copy sshd.local to jail.d
+      become_user: root
+      copy:
+        src: /etc/fail2ban/jail.d/sshd.local
+        dest: /etc/fail2ban/jail.d/
+
+    - name: Reload systemd configuration
+      become_user: root
+      shell: sudo systemctl daemon-reload
+
+    - name: Start fail2ban service
+      become_user: root
+      shell: sudo systemctl start fail2ban
+
+    - name: Check fail2ban status
+      become_user: root
+      shell: sudo systemctl status fail2ban

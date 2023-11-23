@@ -1,0 +1,51 @@
+---
+- name: Install and configure fail2ban
+  hosts: bjtu
+  become: yes  # Run tasks with sudo
+
+  tasks:
+    - name: Create /root/op folder
+      file:
+        path: /root/op
+        state: directory
+
+    - name: Transfer fail2ban.tar.gz to /root/op
+      copy:
+        src: /root/op/fail2ban.tar.gz
+        dest: /root/op/fail2ban.tar.gz
+
+    - name: Extract fail2ban.tar.gz
+      ansible.builtin.unarchive:
+        src: /root/op/fail2ban.tar.gz
+        dest: /root/op/
+        remote_src: yes
+
+    - name: Install fail2ban
+      command: sudo python /root/op/fail2ban/setup.py install
+      args:
+        chdir: /root/op/fail2ban
+
+    - name: Transfer ding.conf to /etc/fail2ban/action.d/
+      copy:
+        src: /etc/fail2ban/action.d/ding.conf
+        dest: /etc/fail2ban/action.d/
+
+    - name: Transfer dingtalk.sh to /etc/fail2ban/action.d/
+      copy:
+        src: /etc/fail2ban/action.d/dingtalk.sh
+        dest: /etc/fail2ban/action.d/
+        mode: '0755'  # Make dingtalk.sh executable
+
+    - name: Transfer sshd.local to /etc/fail2ban/jail.d/
+      copy:
+        src: /etc/fail2ban/jail.d/sshd.local
+        dest: /etc/fail2ban/jail.d/
+    - name: Start fail2ban
+      command: sudo fail2ban-client start
+
+    - name: Check fail2ban status
+      command: sudo fail2ban-client status
+      register: fail2ban_status
+
+    - debug:
+        var: fail2ban_status.stdout_lines

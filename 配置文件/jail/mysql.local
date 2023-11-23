@@ -1,0 +1,7 @@
+[mysqld-iptables]
+enabled  = true
+filter   = mysqld-auth
+action   = iptables[name=mysql, port=3306, protocol=tcp]
+           ding
+logpath  = /var/log/mysql/mysqld.log
+maxretry = 1

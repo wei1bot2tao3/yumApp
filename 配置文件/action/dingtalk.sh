@@ -15,7 +15,8 @@ dingtalk_webhook="https://oapi.dingtalk.com/robot/send?access_token=a5cd33fc0bad
 json_data='{
     "msgtype": "text",
     "text": {
-               "content": "报警：在本机IP '"$local_ip"' 上，IP '"$banned_ip"' 在10分钟内登录失败十次，已被永久封禁。请登录机器进行解封。"
+              "content": "【报警】\n攻击IP：'"$attack_ip"'\n被攻击IP：'"$banned_ip"'\n攻击行为：在10分钟内登录失败十次\n处置结果：永久封禁"
+
     }
 }'
 
@@ -30,3 +31,5 @@ if [ $? -eq 0 ]; then
 else
     echo "DingTalk消息发送失败. IP: $ip" >> "/etc/fail2ban/jail.d/log"
 fi
+
+
