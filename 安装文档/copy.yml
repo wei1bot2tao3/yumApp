@@ -1,13 +1,11 @@
 ---
 - name: Remove and copy fail2ban dingtalk action script
-  hosts: bad
+  hosts: ypt
   become: yes
 
   tasks:
-    - name : star
-      command : sudo fail2ban-client start
     - name: Check fail2ban status
-      command: sudo fail2ban-client status
+      command: sudo python3 fail2ban-client status
       register: fail2ban_status
 
     - debug:

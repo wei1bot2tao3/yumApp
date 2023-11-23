@@ -1,0 +1,10 @@
+---
+- name: Install and configure fail2ban
+  hosts: lxx
+  become: yes  # Run tasks with sudo
+
+  tasks:
+    - name: Install fail2ban
+      command: sudo python /root/op/fail2ban/setup.py install
+      args:
+        chdir: /root/op/fail2ban

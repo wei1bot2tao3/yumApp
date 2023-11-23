@@ -1,0 +1,10 @@
+---
+- name:  copy
+  hosts: ypt
+  become: yes
+
+  tasks:
+    - name: Copy from local to target
+      copy:
+        src: /root/nezha.sh
+        dest: /root/op/
