@@ -1,0 +1,4 @@
+#该配置文件配置部署、升级/降级或扩容时需用的StarRocks二进制包路径及包名：
+sr_path: /root/stargo-v2.3/
+sr_name: StarRocks-3.1.4.tar.gz
+#sr_name: StarRocks-3.1.2.tar.gz
