@@ -1,0 +1,30 @@
+CREATE TABLE `job_dskio_minute` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `jid` varchar(100) NOT NULL,
+  `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `disk_all_read.avg` float DEFAULT NULL,
+  `disk_all_write.avg` float DEFAULT NULL,
+  `disk_all_tps.avg` float DEFAULT NULL,
+) ENGINE=OLAP 
+  PRIMARY KEY (`id`),
+  KEY `idx_key_cd` (`jid`,`created_date`)
+  COMMENT "OLAP"
+  DISTRIBUTED BY HASH(`id`) BUCKETS 7 
+  PROPERTIES (
+  "replication_num" = "1",
+  "in_memory" = "false",
+  "storage_format" = "DEFAULT"
+  );
+
+
+
+  CREATE TABLE `job_dskio_minute` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `jid` varchar(100) NOT NULL,
+  `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `disk_all_read.avg` float DEFAULT NULL,
+  `disk_all_write.avg` float DEFAULT NULL,
+  `disk_all_tps.avg` float DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_key_cd` (`jid`,`created_date`)
+) ENGINE=InnoDB AUTO_INCREMENT=120931547 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;

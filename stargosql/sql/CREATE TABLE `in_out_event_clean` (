@@ -1,0 +1,17 @@
+CREATE TABLE `in_out_event_clean` (
+  `id` int(11) NULL COMMENT "",
+  `JOB_NO` varchar(100) NULL COMMENT "",
+  `IN_OR_OUT` varchar(100) NULL COMMENT "",
+  `EVENT_TIME` datetime NULL COMMENT "",
+  `ENTRANCE_NAME` varchar(100) NULL COMMENT "",
+  `EVENT_SOURCE` varchar(10000) NULL COMMENT "",
+  `EVENT_JSON` varchar(10000) NULL COMMENT ""
+) ENGINE=OLAP 
+DUPLICATE KEY(`id`, `JOB_NO`)
+COMMENT "OLAP"
+DISTRIBUTED BY HASH(`id`) BUCKETS 7 
+PROPERTIES (
+"replication_num" = "1",
+"in_memory" = "false",
+"storage_format" = "DEFAULT"
+);

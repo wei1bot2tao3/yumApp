@@ -1,0 +1,364 @@
+CREATE TABLE `job_cpu_minute` (
+  `id` bigint(20) NOT NULL COMMENT "",
+  `jid` varchar(100) NOT NULL COMMENT "",
+  `created_date` datetime NOT NULL COMMENT "",
+  `idle_avg` float NULL COMMENT "",
+  `iowait_avg` float NULL COMMENT "",
+  `sys_avg` float NULL COMMENT "",
+  `user_avg` float NULL COMMENT "",
+  `nice_avg` float NULL COMMENT "",
+  `irq_avg` float NULL COMMENT "",
+  `softirq_avg` float NULL COMMENT "",
+  INDEX idx_key_jid (`jid`) USING BITMAP COMMENT 'jid_index',
+  INDEX idx_key_date (`created_date`) USING BITMAP COMMENT 'date_index'
+) ENGINE=OLAP 
+PRIMARY KEY(`id`)
+COMMENT "OLAP"
+DISTRIBUTED BY HASH(`id`) BUCKETS 7 
+PROPERTIES (
+"replication_num" = "1",
+"in_memory" = "false",
+"storage_format" = "DEFAULT"
+);
+
+CREATE TABLE `job_dskio_minute` (
+  `id` bigint(20) NOT NULL COMMENT "",
+  `jid` varchar(100) NOT NULL COMMENT "",
+  `created_date` datetime NOT NULL COMMENT "",
+  `disk_all_read_avg` float NULL COMMENT "",
+  `disk_all_write_avg` float NULL COMMENT "",
+  `disk_all_tps_avg` float NULL COMMENT ""
+) ENGINE=OLAP 
+PRIMARY KEY(`id`)
+COMMENT "OLAP"
+DISTRIBUTED BY HASH(`id`) BUCKETS 7 
+PROPERTIES (
+"replication_num" = "1",
+"in_memory" = "false",
+"storage_format" = "DEFAULT"
+);
+
+CREATE TABLE `job_meminfo_minute` (
+  `id` bigint(20) NOT NULL COMMENT "",
+  `jid` varchar(100) NOT NULL COMMENT "",
+  `created_date` datetime NOT NULL COMMENT "",
+  `mem_ratio_avg` float NULL COMMENT "",
+  `swap_ratio_avg` float NULL COMMENT "",
+  `mem_used_avg` float NULL COMMENT "",
+  `swap_ratio_cnt` float NULL COMMENT "",
+  `mem_ratio_cnt` float NULL COMMENT ""
+) ENGINE=OLAP 
+PRIMARY KEY(`id`)
+COMMENT "OLAP"
+DISTRIBUTED BY HASH(`id`) BUCKETS 7 
+PROPERTIES (
+"replication_num" = "1",
+"in_memory" = "false",
+"storage_format" = "DEFAULT"
+);
+
+CREATE TABLE `job_net_minute` (
+  `id` bigint(20) NOT NULL COMMENT "",
+  `jid` varchar(100) NOT NULL COMMENT "",
+  `created_date` datetime NOT NULL COMMENT "",
+  `rcv_bytes_avg` float NULL COMMENT "",
+  `snd_bytes_avg` float NULL COMMENT ""
+) ENGINE=OLAP 
+PRIMARY KEY(`id`)
+COMMENT "OLAP"
+DISTRIBUTED BY HASH(`id`) BUCKETS 7 
+PROPERTIES (
+"replication_num" = "1",
+"in_memory" = "false",
+"storage_format" = "DEFAULT"
+);
+
+CREATE TABLE `t_app` (
+  `id` bigint(20) NOT NULL COMMENT "ID",
+  `app_code` varchar(50) NULL DEFAULT "" COMMENT "应用编码，英文，数字，下划线。必须是英文字母开头",
+  `app_name` varchar(50) NOT NULL DEFAULT "" COMMENT "应用名，英文，数字，下划线，中文汉字",
+  `type` varchar(50) NULL DEFAULT "DEFAULT" COMMENT "应用类型（后台使用），批处理：JOB 可视化：VDI 其他：DEFAULT",
+  `tags` varchar(255) NULL COMMENT "画面输入的标签值，多个数据时，半角逗号分隔",
+  `render_type` varchar(50) NULL COMMENT "应用类型（前台使用，是以什么方式打开应用）",
+  `is_released` tinyint(4) NULL DEFAULT "0" COMMENT "是否released",
+  `is_all_platform` tinyint(4) NULL COMMENT "是否所有平台都显示",
+  `is_public` tinyint(4) NULL COMMENT "是否所有用户都显示",
+  `hide_in_store` tinyint(4) NULL DEFAULT "0" COMMENT "是否不显示在应用商店",
+  `version` varchar(20) NULL COMMENT "版本",
+  `min_client_version_code` bigint(20) NULL COMMENT "适配客户端最小版本",
+  `max_client_version_code` bigint(20) NULL COMMENT "适配客户端最大版本",
+  `app_from` varchar(50) NULL COMMENT "来源，从应用管理画面集成的应用：固定设置为1",
+  `app_url` varchar(512) NOT NULL COMMENT "CS客户端打开地址",
+  `web_url` varchar(512) NOT NULL COMMENT "BS打开地址",
+  `app_icon_path` varchar(512) NULL COMMENT "图标地址",
+  `app_desc` varchar(255) NULL COMMENT "",
+  `seq` int(11) NULL DEFAULT "0" COMMENT "排序序号",
+  `create_time` datetime NOT NULL COMMENT "创建时间",
+  `update_time` datetime NOT NULL COMMENT "更新时间",
+  `use_desc` varchar(255) NULL COMMENT ""
+) ENGINE=OLAP 
+PRIMARY KEY(`id`)
+COMMENT "应用信息"
+DISTRIBUTED BY HASH(`id`) BUCKETS 7 
+PROPERTIES (
+"replication_num" = "1",
+"in_memory" = "false",
+"storage_format" = "DEFAULT"
+);
+
+CREATE TABLE `t_app_cluster` (
+  `id` bigint(20) NOT NULL COMMENT "自增ID",
+  `app_id` bigint(20) NOT NULL COMMENT "应用ID",
+  `cluster_id` varchar(100) NOT NULL COMMENT "部署集群ID"
+) ENGINE=OLAP 
+PRIMARY KEY(`id`)
+COMMENT "OLAP"
+DISTRIBUTED BY HASH(`id`) BUCKETS 7 
+PROPERTIES (
+"replication_num" = "1",
+"in_memory" = "false",
+"storage_format" = "DEFAULT"
+);
+
+CREATE TABLE `t_app_property` (
+  `id` bigint(20) NOT NULL COMMENT "自增ID",
+  `app_id` bigint(20) NOT NULL COMMENT "应用ID",
+  `name` varchar(100) NOT NULL COMMENT "应用属性名称（应用所在平台，应用所用摸版等）",
+  `value` varchar(4096) NULL COMMENT "应用属性值"
+) ENGINE=OLAP 
+PRIMARY KEY(`id`)
+COMMENT "应用属性"
+DISTRIBUTED BY HASH(`id`) BUCKETS 7 
+PROPERTIES (
+"replication_num" = "1",
+"in_memory" = "false",
+"storage_format" = "DEFAULT"
+);
+
+CREATE TABLE `t_app_template` (
+  `id` bigint(20) NOT NULL COMMENT "自增ID",
+  `app_name` varchar(100) NOT NULL COMMENT "应用名称",
+  `app_template` varchar(65533) NOT NULL COMMENT "应用模板"
+) ENGINE=OLAP 
+PRIMARY KEY(`id`)
+COMMENT "应用模板库"
+DISTRIBUTED BY HASH(`id`) BUCKETS 7 
+PROPERTIES (
+"replication_num" = "1",
+"in_memory" = "false",
+"storage_format" = "DEFAULT"
+);
+
+CREATE TABLE `t_app_user_parameter` (
+  `id` bigint(20) NOT NULL COMMENT "自增ID",
+  `app_id` bigint(20) NOT NULL COMMENT "应用ID",
+  `user_id` varchar(100) NOT NULL COMMENT "用户ID",
+  `app` varchar(65533) NOT NULL COMMENT "应用模板参数"
+) ENGINE=OLAP 
+PRIMARY KEY(`id`)
+COMMENT "用户的应用模板保存参数"
+DISTRIBUTED BY HASH(`id`) BUCKETS 7 
+PROPERTIES (
+"replication_num" = "1",
+"in_memory" = "false",
+"storage_format" = "DEFAULT"
+);
+
+CREATE TABLE `t_apply` (
+  `id` bigint(20) NOT NULL COMMENT "自增ID",
+  `request_id` varchar(100) NOT NULL COMMENT "工单ID",
+  `applicant_id` varchar(100) NOT NULL COMMENT "申请人ID",
+  `applicant_name` varchar(100) NULL COMMENT "申请人姓名",
+  `create_time` datetime NULL COMMENT "创建时间",
+  `content` varchar(4000) NOT NULL COMMENT "内容",
+  `status` varchar(50) NULL COMMENT "状态",
+  `approver` varchar(100) NULL COMMENT "审批者",
+  `approval_time` datetime NULL COMMENT "审批时间",
+  `type` varchar(100) NULL COMMENT "分类",
+  `apply_name` varchar(100) NULL COMMENT "申请应用名称",
+  `approver_name` varchar(100) NULL COMMENT "审批者名称",
+  `comment` varchar(1024) NULL COMMENT "备注",
+  `relation_key` varchar(100) NULL COMMENT "用户应用表关联key"
+) ENGINE=OLAP 
+PRIMARY KEY(`id`)
+COMMENT "申请工单信息"
+DISTRIBUTED BY HASH(`id`) BUCKETS 7 
+PROPERTIES (
+"replication_num" = "1",
+"in_memory" = "false",
+"storage_format" = "DEFAULT"
+);
+
+CREATE TABLE `t_cluster_url` (
+  `cluster_id` varchar(100) NOT NULL DEFAULT "" COMMENT "集群ID",
+  `url` varchar(100) NOT NULL DEFAULT "" COMMENT "集群管理RUL",
+  `vnc_proxy` varchar(50) NULL COMMENT "VNC代理服务地址",
+  `cluster_home` varchar(100) NULL COMMENT ""
+) ENGINE=OLAP 
+PRIMARY KEY(`cluster_id`)
+COMMENT "OLAP"
+DISTRIBUTED BY HASH(`cluster_id`) BUCKETS 7 
+PROPERTIES (
+"replication_num" = "1",
+"in_memory" = "false",
+"storage_format" = "DEFAULT"
+);
+
+CREATE TABLE `t_image` (
+  `image_id` varchar(100) NOT NULL COMMENT "图片ID",
+  `path` varchar(512) NULL COMMENT "图片路径",
+  `image_name` varchar(100) NOT NULL COMMENT "文件名称",
+  `image_size` bigint(20) NOT NULL COMMENT "文件大小",
+  `content` varchar(65533) NULL COMMENT ""
+) ENGINE=OLAP 
+PRIMARY KEY(`image_id`)
+COMMENT "集群配置信息"
+DISTRIBUTED BY HASH(`image_id`) BUCKETS 7 
+PROPERTIES (
+"replication_num" = "1",
+"in_memory" = "false",
+"storage_format" = "DEFAULT"
+);
+
+CREATE TABLE `t_job` (
+  `id` bigint(20) NOT NULL COMMENT "自增ID",
+  `job_id` varchar(100) NOT NULL COMMENT "作业ID",
+  `cluster_id` varchar(100) NOT NULL COMMENT "所属集群ID",
+  `scheduler_system` varchar(100) NULL COMMENT "调度系统",
+  `done` tinyint(4) NULL DEFAULT "0" COMMENT "完成状态",
+  `user` varchar(100) NULL COMMENT "集群账号",
+  `state` varchar(50) NULL COMMENT "作业状态",
+  `original_state` varchar(50) NULL COMMENT "采集获取原始状态",
+  `part` varchar(50) NULL COMMENT "队列名称",
+  `name` varchar(128) NULL COMMENT "作业名称",
+  `nodes` varchar(65533) NULL COMMENT "作业占用节点（所有节点名称）",
+  `nodes_num` int(11) NULL DEFAULT "0" COMMENT "节点数量",
+  `submit` bigint(20) NULL COMMENT "提交时间",
+  `start` bigint(20) NULL COMMENT "开始时间",
+  `end` bigint(20) NULL COMMENT "结束时间",
+  `ncpus` int(11) NULL COMMENT "CPU核数",
+  `ngpus` int(11) NULL COMMENT "GPU卡数",
+  `mem` bigint(20) NULL COMMENT "内存（MB）",
+  `wtime` bigint(20) NULL COMMENT "",
+  `err` varchar(255) NULL COMMENT "作业异常信息",
+  `pend_time` bigint(20) NULL COMMENT "",
+  `app_id` int(11) NULL COMMENT "应用ID",
+  `portal_id` varchar(100) NULL COMMENT "平台用户ID",
+  `portal_user` varchar(100) NULL COMMENT "平台用户名称",
+  `app_params` varchar(65533) NULL COMMENT "应用参数",
+  `slurm_params` varchar(65533) NULL COMMENT "调度系统参数",
+  `work_dir` varchar(255) NULL COMMENT "作业目录",
+  `app_output_dir` varchar(255) NULL COMMENT "作业输出目录",
+  `std_output` varchar(255) NULL COMMENT "作业日志（路径及文件名称）",
+  `view_id` int(11) NULL COMMENT "可视化会话ID",
+  `is_cmd` tinyint(4) NULL DEFAULT "1" COMMENT "是否为命令行提交作业",
+  `job_level_id` int(11) NULL COMMENT "作业密级ID",
+  `job_level_desc` varchar(255) NULL COMMENT "作业密级描述",
+  `update_time` datetime NOT NULL COMMENT "更新时间",
+  `priority` bigint(20) NULL COMMENT "作业优先级",
+  `is_file_delete` tinyint(4) NULL DEFAULT "0" COMMENT "作业目录是否删除",
+  `is_vnc_job` tinyint(4) NULL DEFAULT "0" COMMENT "图形化作业"
+) ENGINE=OLAP 
+PRIMARY KEY(`id`)
+COMMENT "作业信息"
+DISTRIBUTED BY HASH(`id`) BUCKETS 7 
+PROPERTIES (
+"replication_num" = "1",
+"in_memory" = "false",
+"storage_format" = "DEFAULT"
+);
+
+CREATE TABLE `t_nodes_info` (
+  `id` int(11) NOT NULL COMMENT "自增ID",
+  `name` varchar(100) NOT NULL COMMENT "节点名称",
+  `cluster` varchar(100) NOT NULL DEFAULT "" COMMENT "所属集群",
+  `state` varchar(100) NULL COMMENT "节点状态",
+  `stateo` varchar(100) NULL COMMENT "采集的原始状态",
+  `ncpus` int(11) NULL COMMENT "CPU核数",
+  `cpu_alloc` int(11) NULL COMMENT "已用CPU",
+  `job_total` int(11) NULL COMMENT "作业总数",
+  `job_running` int(11) NULL COMMENT "正在运行的作业数",
+  `ljobs` varchar(255) NULL COMMENT "正在运行的作业信息",
+  `timestamp` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT ""
+) ENGINE=OLAP 
+UNIQUE KEY(`id`)
+COMMENT "OLAP"
+DISTRIBUTED BY HASH(`id`) BUCKETS 7 
+PROPERTIES (
+"replication_num" = "1",
+"in_memory" = "false",
+"storage_format" = "DEFAULT"
+);
+
+CREATE TABLE `t_systemsetting` (
+  `name` varchar(100) NOT NULL COMMENT "配置项名称",
+  `value` varchar(200) NULL COMMENT "值",
+  `category` varchar(100) NULL COMMENT "类别",
+  `description` varchar(256) NULL COMMENT "描述",
+  `tag` varchar(512) NULL COMMENT "标签",
+  `metadata` varchar(256) NULL COMMENT "设定项的值的类型、分隔符等信息"
+) ENGINE=OLAP 
+PRIMARY KEY(`name`)
+COMMENT "系统配置表"
+DISTRIBUTED BY HASH(`name`) BUCKETS 7 
+PROPERTIES (
+"replication_num" = "1",
+"in_memory" = "false",
+"storage_format" = "DEFAULT"
+);
+
+CREATE TABLE `t_user_app` (
+  `id` bigint(20) NOT NULL COMMENT "自增ID",
+  `user_id` varchar(100) NOT NULL COMMENT "用户ID",
+  `app_id` bigint(20) NOT NULL COMMENT "应用ID",
+  `status` varchar(50) NULL DEFAULT "active" COMMENT "状态：approving=申请中，active=可使用",
+  `is_installed` tinyint(4) NULL COMMENT "是否已安装",
+  `create_time` datetime NULL COMMENT "创建时间",
+  `update_time` datetime NULL COMMENT "更新时间"
+) ENGINE=OLAP 
+PRIMARY KEY(`id`)
+COMMENT "用户申请应用信息"
+DISTRIBUTED BY HASH(`id`) BUCKETS 7 
+PROPERTIES (
+"replication_num" = "1",
+"in_memory" = "false",
+"storage_format" = "DEFAULT"
+);
+
+CREATE TABLE `t_user_cluster_account` (
+  `id` bigint(20) NOT NULL COMMENT "自增ID",
+  `user_id` varchar(100) NOT NULL COMMENT "用户ID",
+  `user_name` varchar(100) NOT NULL COMMENT "用户名",
+  `cluster_id` varchar(100) NOT NULL COMMENT "集群ID",
+  `account_id` varchar(100) NOT NULL COMMENT "集群账号ID",
+  `account_name` varchar(100) NOT NULL COMMENT "集群账号名",
+  `home` varchar(255) NOT NULL COMMENT "HOME目录",
+  `is_deleted` tinyint(4) NOT NULL COMMENT "删除状态",
+  `created_date` datetime NULL COMMENT "创建时间",
+  `updated_date` datetime NULL COMMENT "更新时间",
+  `created_user_id` varchar(100) NULL DEFAULT "1" COMMENT "创建者",
+  `updated_user_id` varchar(100) NULL DEFAULT "1" COMMENT "更新者"
+) ENGINE=OLAP 
+PRIMARY KEY(`id`)
+COMMENT "用户绑定集群账号"
+DISTRIBUTED BY HASH(`id`) BUCKETS 7 
+PROPERTIES (
+"replication_num" = "1",
+"in_memory" = "false",
+"storage_format" = "DEFAULT"
+);
+
+CREATE TABLE `t_user_group_app` (
+  `id` bigint(20) NOT NULL COMMENT "ID",
+  `group_id` varchar(100) NOT NULL COMMENT "用户组ID",
+  `app_id` bigint(20) NOT NULL COMMENT "应用ID",
+  `create_time` datetime NULL COMMENT "创建时间"
+) ENGINE=OLAP 
+PRIMARY KEY(`id`)
+COMMENT "应用及用户组关系表"
+DISTRIBUTED BY HASH(`id`) BUCKETS 7 
+PROPERTIES (
+"replication_num" = "1",
+"in_memory" = "false",
+"storage_format" = "DEFAULT"
+);

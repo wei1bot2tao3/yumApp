@@ -1,0 +1,73 @@
+CREATE TABLE `t_app` (
+  `id` bigint(20) NOT NULL COMMENT 'ID',
+  `app_code` varchar(50) DEFAULT '' COMMENT '应用编码，英文，数字，下划线。必须是英文字母开头',
+  `app_name` varchar(50) NOT NULL DEFAULT '' COMMENT '应用名，英文，数字，下划线，中文汉字',
+  `type` varchar(50) DEFAULT 'DEFAULT' COMMENT '应用类型（后台使用），批处理：JOB 可视化：VDI 其他：DEFAULT',
+  `tags` varchar(255) DEFAULT NULL COMMENT '画面输入的标签值，多个数据时，半角逗号分隔',
+  `render_type` varchar(50) DEFAULT NULL COMMENT '应用类型（前台使用，是以什么方式打开应用）',
+  `is_released` tinyint(1) DEFAULT '0' COMMENT '是否released',
+  `is_all_platform` tinyint(1) DEFAULT NULL COMMENT '是否所有平台都显示',
+  `is_public` tinyint(1) DEFAULT NULL COMMENT '是否所有用户都显示',
+  `hide_in_store` tinyint(1) DEFAULT '0' COMMENT '是否不显示在应用商店',
+  `version` varchar(20) DEFAULT NULL COMMENT '版本',
+  `min_client_version_code` bigint(20) DEFAULT NULL COMMENT '适配客户端最小版本',
+  `max_client_version_code` bigint(20) DEFAULT NULL COMMENT '适配客户端最大版本',
+  `app_from` varchar(50) DEFAULT NULL COMMENT '来源，从应用管理画面集成的应用：固定设置为1',
+  `app_url` varchar(512) NOT NULL COMMENT 'CS客户端打开地址',
+  `web_url` varchar(512) NOT NULL COMMENT 'BS打开地址',
+  `app_icon_path` varchar(512) DEFAULT NULL COMMENT '图标地址',
+  `app_desc` varchar(255) DEFAULT NULL,
+  `seq` int(11) DEFAULT '0' COMMENT '排序序号',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+) ENGINE=OLAP 
+  PRIMARY KEY (`id`)
+  COMMENT "OLAP"
+  DISTRIBUTED BY HASH(`id`) BUCKETS 7 
+  PROPERTIES (
+  "replication_num" = "1",
+  "in_memory" = "false",
+  "storage_format" = "DEFAULT"
+  );
+
+CREATE TABLE `t_app_template` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
+  `app_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '应用名称',
+  `app_template` text NOT NULL COMMENT '应用模板'
+) ENGINE=OLAP 
+  PRIMARY KEY (`id`)
+  COMMENT "OLAP"
+  DISTRIBUTED BY HASH(`id`) BUCKETS 7
+  COMMENT='应用模板库' 
+  PROPERTIES (
+  "replication_num" = "1",
+  "in_memory" = "false",
+  "storage_format" = "DEFAULT"
+  );
+
+
+CREATE TABLE `t_app_cluster` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
+  `app_id` bigint(20) NOT NULL COMMENT '应用ID',
+  `cluster_id` varchar(100) NOT NULL COMMENT '部署集群ID',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `app_cid` (`app_id`,`cluster_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8 COMMENT='应用部署集群';
+
+CREATE TABLE `t_app_property` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
+  `app_id` bigint(20) NOT NULL COMMENT '应用ID',
+  `name` varchar(100) NOT NULL COMMENT '应用属性名称（应用所在平台，应用所用摸版等）',
+  `value` varchar(4096) DEFAULT NULL COMMENT '应用属性值',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8 COMMENT='应用属性';
+
+
+CREATE TABLE `t_app_template` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
+  `app_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '应用名称',
+  `app_template` text NOT NULL COMMENT '应用模板',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `app_name` (`app_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8 COMMENT='应用模板库';
+

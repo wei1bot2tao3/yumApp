@@ -1,0 +1,195 @@
+CREATE TABLE `in_out_event` (
+  `EVENT_ID` varchar(200) NULL COMMENT "",
+  `EVENT_TYPE` varchar(20) NULL COMMENT "",
+  `HAPPEN_TIME` varchar(255) NULL COMMENT "",
+  `SRC_NAME` varchar(100) NULL COMMENT "",
+  `CARD_NO` varchar(40) NULL COMMENT "",
+  `EVENT_CODE` varchar(20) NULL COMMENT "",
+  `IN_OR_OUT` varchar(20) NULL COMMENT "",
+  `PERSON_NO` varchar(100) NULL COMMENT "",
+  `JOB_NO` varchar(40) NULL COMMENT "",
+  `PICTURE_URL` varchar(500) NULL COMMENT "",
+  `EVENT_TIME` varchar(100) NULL COMMENT "",
+  `EVENT_JSON` varchar(10000) NULL COMMENT "",
+  `ENTRANCE_NAME` varchar(100) NULL COMMENT ""
+) ENGINE=OLAP 
+UNIQUE KEY(`EVENT_ID`)
+COMMENT "OLAP"
+DISTRIBUTED BY HASH(`EVENT_ID`) BUCKETS 7 
+PROPERTIES (
+"replication_num" = "1",
+"in_memory" = "false",
+"storage_format" = "DEFAULT"
+);
+
+CREATE TABLE `in_out_event_clean` (
+  `id` bigint(20) NULL COMMENT "",
+  `JOB_NO` varchar(40) NULL COMMENT "",
+  `IN_OR_OUT` varchar(20) NULL COMMENT "",
+  `EVENT_TIME` datetime NULL COMMENT "",
+  `ENTRANCE_NAME` varchar(40) NULL COMMENT "",
+  `EVENT_SOURCE` varchar(10000) NULL COMMENT "",
+  `EVENT_JSON` varchar(10000) NULL COMMENT ""
+) ENGINE=OLAP 
+UNIQUE KEY(`id`)
+COMMENT "OLAP"
+DISTRIBUTED BY HASH(`id`) BUCKETS 7 
+PROPERTIES (
+"replication_num" = "1",
+"in_memory" = "false",
+"storage_format" = "DEFAULT"
+);
+
+CREATE TABLE `m_base_customerscard` (
+  `outid` varchar(80) NULL COMMENT "",
+  `oddfare` bigint(20) NULL COMMENT "",
+  `id` bigint(20) NULL COMMENT "",
+  `ecode` varchar(60) NULL COMMENT "",
+  `customerid` bigint(20) NULL COMMENT "",
+  `cardsn` bigint(20) NULL COMMENT "",
+  `scardsnr` varchar(60) NULL COMMENT "",
+  `status` bigint(20) NULL COMMENT "",
+  `opendt` datetime NULL COMMENT "",
+  `asn` varchar(60) NULL COMMENT "",
+  `updateflag` varchar(60) NULL COMMENT "",
+  `updatedt` datetime NULL COMMENT "",
+  `downdt` datetime NULL COMMENT "",
+  `name` varchar(120) NULL COMMENT "",
+  `suboddfare` bigint(20) NULL COMMENT "",
+  `onlineoddfare` bigint(20) NULL COMMENT "",
+  `cardtype` int(11) NULL COMMENT "",
+  `idcardno` varchar(76) NULL COMMENT "",
+  `cardno` int(11) NULL COMMENT "",
+  `barcode` varchar(140) NULL COMMENT "",
+  `custdept` varchar(140) NULL COMMENT "",
+  `dpfullname` varchar(1000) NULL COMMENT "",
+  `cardtypename` varchar(140) NULL COMMENT "",
+  `nousedate` datetime NULL COMMENT "",
+  `sex` int(11) NULL COMMENT "",
+  `sexname` varchar(40) NULL COMMENT "",
+  `nation` varchar(300) NULL COMMENT "",
+  `nationname` varchar(300) NULL COMMENT ""
+) ENGINE=OLAP 
+UNIQUE KEY(`outid`, `oddfare`)
+COMMENT "OLAP"
+DISTRIBUTED BY HASH(`outid`) BUCKETS 7 
+PROPERTIES (
+"replication_num" = "1",
+"in_memory" = "false",
+"storage_format" = "DEFAULT"
+);
+
+CREATE TABLE `m_base_dept` (
+  `ecode` varchar(60) NULL COMMENT "",
+  `dptcode` varchar(40) NULL COMMENT "",
+  `dptname` varchar(120) NULL COMMENT "",
+  `dptcode_p` varchar(40) NULL COMMENT "",
+  `updateflag` varchar(40) NULL COMMENT "",
+  `updatedt` datetime NULL COMMENT "",
+  `downdt` datetime NULL COMMENT "",
+  `ver` bigint(20) NULL COMMENT ""
+) ENGINE=OLAP 
+UNIQUE KEY(`ecode`, `dptcode`)
+COMMENT "OLAP"
+DISTRIBUTED BY HASH(`dptcode`) BUCKETS 7 
+PROPERTIES (
+"replication_num" = "1",
+"in_memory" = "false",
+"storage_format" = "DEFAULT"
+);
+
+CREATE TABLE `m_base_term` (
+  `ecode` varchar(60) NULL COMMENT "",
+  `termid` bigint(20) NULL COMMENT "",
+  `termname` varchar(60) NULL COMMENT "",
+  `termaddr` varchar(60) NULL COMMENT "",
+  `dptcode` varchar(20) NULL COMMENT "",
+  `acccode` bigint(20) NULL COMMENT "",
+  `dscrp` varchar(120) NULL COMMENT "",
+  `isuse` bigint(20) NULL COMMENT "",
+  `extendedtermaddr` bigint(20) NULL COMMENT "",
+  `poscode` bigint(20) NULL COMMENT "",
+  `typeid` bigint(20) NULL COMMENT "",
+  `samcardno` bigint(20) NULL COMMENT "",
+  `commode` bigint(20) NULL COMMENT "",
+  `alldptcode` varchar(400) NULL COMMENT "",
+  `updateflag` varchar(40) NULL COMMENT "",
+  `updatedt` datetime NULL COMMENT "",
+  `downdt` datetime NULL COMMENT "",
+  `ver` bigint(20) NULL COMMENT "",
+  `sourcetable` int(11) NULL COMMENT ""
+) ENGINE=OLAP 
+UNIQUE KEY(`ecode`, `termid`)
+COMMENT "OLAP"
+DISTRIBUTED BY HASH(`termid`) BUCKETS 7 
+PROPERTIES (
+"replication_num" = "1",
+"in_memory" = "false",
+"storage_format" = "DEFAULT"
+);
+
+CREATE TABLE `m_rec_consume_recent` (
+  `ecode` varchar(60) NULL COMMENT "",
+  `id` bigint(20) NULL COMMENT "",
+  `notecase` bigint(20) NULL COMMENT "",
+  `customerid` bigint(20) NULL COMMENT "",
+  `outid` varchar(60) NULL COMMENT "",
+  `cardsn` bigint(20) NULL COMMENT "",
+  `opcount` bigint(20) NULL COMMENT "",
+  `opdt` datetime NULL COMMENT "",
+  `oddfare` bigint(20) NULL COMMENT "",
+  `opfare` bigint(20) NULL COMMENT "",
+  `mngfare` bigint(20) NULL COMMENT "",
+  `acccode` bigint(20) NULL COMMENT "",
+  `dscrp` varchar(120) NULL COMMENT "",
+  `termid` bigint(20) NULL COMMENT "",
+  `recno` bigint(20) NULL COMMENT "",
+  `uploaddate` datetime NULL COMMENT "",
+  `samcardno` bigint(20) NULL COMMENT "",
+  `samtradeno` bigint(20) NULL COMMENT "",
+  `tradecardtype` bigint(20) NULL COMMENT "",
+  `tac` bigint(20) NULL COMMENT "",
+  `asn` varchar(40) NULL COMMENT "",
+  `updateflag` varchar(40) NULL COMMENT "",
+  `updatedt` datetime NULL COMMENT "",
+  `downdt` datetime NULL COMMENT "",
+  `sourcetable` bigint(20) NULL COMMENT ""
+) ENGINE=OLAP 
+UNIQUE KEY(`ecode`, `id`)
+COMMENT "OLAP"
+DISTRIBUTED BY HASH(`id`) BUCKETS 7 
+PROPERTIES (
+"replication_num" = "1",
+"in_memory" = "false",
+"storage_format" = "DEFAULT"
+);
+
+CREATE TABLE `m_rec_kqmj_recent` (
+  `id` largeint(40) NULL COMMENT "",
+  `ecode` varchar(100) NULL COMMENT "",
+  `outid` varchar(100) NULL COMMENT "",
+  `termid` varchar(100) NULL COMMENT "",
+  `cardsnr` varchar(100) NULL COMMENT "",
+  `opdt` datetime NULL COMMENT "",
+  `colldt` datetime NULL COMMENT "",
+  `rectype` varchar(100) NULL COMMENT "",
+  `ioflag` varchar(100) NULL COMMENT "",
+  `updateflag` varchar(100) NULL COMMENT "",
+  `updatedt` datetime NULL COMMENT "",
+  `downdt` datetime NULL COMMENT "",
+  `termname` varchar(100) NULL COMMENT "",
+  `name` varchar(100) NULL COMMENT "",
+  `sourcetable` int(11) NULL COMMENT "",
+  `temperature` varchar(100) NULL COMMENT "",
+  `acccode` int(11) NULL COMMENT "",
+  `accdscrp` varchar(100) NULL COMMENT "",
+  `identitytype` int(11) NULL COMMENT ""
+) ENGINE=OLAP 
+UNIQUE KEY(`id`)
+COMMENT "OLAP"
+DISTRIBUTED BY HASH(`id`) BUCKETS 7 
+PROPERTIES (
+"replication_num" = "1",
+"in_memory" = "false",
+"storage_format" = "DEFAULT"
+);

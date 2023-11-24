@@ -202,7 +202,7 @@ sr_name: StarRocks-2.5.13.tar.gz
 StarGo 部署的过程中不会访问外网，只会使用我们配置的安装包离线部署，我们指定集群名称为 `sr-c1`，版本为我们指定的`2.5.13`，配置文件为上文的`deploy-demo.yaml`:
 
 ```shell
-[root@starrocks stargo-v2.3]# ./stargo cluster deploy sr-c1 v3.0.7 deploy-template.yaml
+[root@starrocks stargo-v2.3]# ./stargo cluster deploy sr-c1 v3.1.4 deploy-template.yaml
 ```
 
 执行 deploy 命令后，StarGo 会先进行目录、端口、系统参数等的检查，若服务器配置较差，这一步耗时会略长（在stargo 2.3版本，这里添加了一个跳过检查的选项，若确认服务器配置已满足要求，当测试环境检测特别慢时可以按照提示跳过环境检查）。StarGo 会将所有操作的日志打印在控制台上，部署过程中不需要我们进行手动操作，等待部署完成后检查服务，确认 FE、BE、Broker 的进程均存在即可：
@@ -915,13 +915,13 @@ StarRocks在部署完成后，默认用户为 root，密码为空（**这里的 
 例如我们修改 StarRocks 集群 root 用户的密码为 root，我们用 mysql-client 或可视化工具将 StarRocks 视为 MySQL 访问，IP 使用任意 FE 的 IP，端口为 9030，访问集群：
 
 ```shell
-[root@starrocks ~]# mysql -h192.168.125.23 -P9030 -uroot
+[root@starrocks ~]# mysql -h172.31.254.91 -P9030 -uroot
 ```
 
 修改密码后退出：
 
 ```sql
-mysql> set password = password('root');
+mysql> set password = password('sdc@BJTU1011');
 mysql> exit
 ```
 
