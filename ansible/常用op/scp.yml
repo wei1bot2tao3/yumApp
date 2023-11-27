@@ -1,0 +1,17 @@
+---
+- name: scp
+- hosts: webservers
+  become: yes
+  tasks:
+    - name: Copy from local to target
+      copy:
+        src: /root/nezha.sh
+        dest: /root/op/
+    - name: List files in /root/op/
+      become: yes
+      shell: ls /root/op/
+      register: ls_output
+
+    - name: Display ls command output
+      debug:
+        var: ls_output.stdout_lines

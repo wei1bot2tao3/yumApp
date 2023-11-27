@@ -1,0 +1,13 @@
+---
+- name: List files on target hosts
+  hosts: ypt # 指定要执行任务的主机组
+  become: yes
+
+  tasks:
+    - name: List files in /root/op/
+      shell: ls /root/op/
+      register: ls_output
+
+    - name: Display ls command output
+      debug:
+        var: ls_output.stdout_lines
