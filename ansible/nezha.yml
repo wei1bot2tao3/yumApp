@@ -1,0 +1,30 @@
+---
+- name: Deploy Nezha Agent
+  hosts: yptne
+  become: yes
+
+  tasks:
+    - name: Create /opt/nezha/agent directory
+      file:
+        path: /opt/nezha/agent
+        state: directory
+        mode: '0755'
+
+    - name: Set permissions recursively for /opt/nezha/
+      file:
+        path: /opt/nezha/
+        state: directory
+        recurse: yes
+        mode: '0755'
+
+    - name: Copy nezha-agent binary
+      copy:
+        src: /opt/nezha/agent/nezha-agent
+        dest: /opt/nezha/agent/
+        mode: '0755'
+
+    - name: Copy systemd service file
+      copy:
+        src: /etc/systemd/system/nezha-agent.service
+        dest: /etc/systemd/system/nezha-agent.service
+        mode: '0644'
