@@ -5,8 +5,10 @@ git clone git@github.com:wei1bot2tao3/yumApp.git
 git checkout -b StarRocks
 进行修改和提交：
 git add .
-git commit -m "添加StarRocks相关修改"
+git commit -m "加入git"
 推送分支到GitHub：
-git push origin StarRocks
+git push origin main
+git branch
+git switch doris
 如果是第一次推送该分支，可能需要执行以下命令来设置远程分支：
-git push --set-upstream origin StarRocks
+git push --set-upstream origin main
