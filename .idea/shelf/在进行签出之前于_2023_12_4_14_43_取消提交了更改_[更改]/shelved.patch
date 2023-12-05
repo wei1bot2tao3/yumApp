@@ -1,0 +1,19 @@
+Index: stargo/安装步骤/步骤.MD
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>star\r\n机器部署规划\r\n  172.31.254.91 华为 6号机 root qWKom4K@ 默认是他\r\n  172.31.254.98 华为 6号机 root GhQf1k%N 主机点\r\n  172.31.254.99 华为 6号机 root p7bJP$Xl\r\n  172.31.254.118 华为 6号机 root vC%eo7#s StarGo\r\nssh-keygen  \r\nssh-copy-id root@172.31.254.119\r\nbjtu!@#$1011\r\n\r\nStarGo程序目录：/opt/stargo-v2.0.3\r\nFE程序目录：/opt/starrocks/fe\r\nFE元数据目录：/data1/starrocks/fe/meta\r\nFE日志目录：/data1/starrocks/fe/log\r\nBE程序目录：/opt/starrocks/be\r\nBE数据目录：/data2/starrocks/be/storage\r\nBE日志目录：/data2/starrocks/be/log\r\nBroker程序目录：/opt/starrocks/apache_hdfs_broker\r\nBroker日志目录：/data2/starrocks/apache_hdfs_broker/log\r\n\r\n\r\n\r\n查看指令集：\r\ncat /proc/cpuinfo | grep avx2\r\n\r\ntar xvf stargo-v2.3.tar.gz\r\ncd stargo-v2.3\r\n\r\nsdc@BJTU1011\r\nALTER USER 'root'@'*' IDENTIFIED BY 'sdc@BJTU1011';\r\n\r\n
+===================================================================
+diff --git a/stargo/安装步骤/步骤.MD b/stargo/安装步骤/步骤.MD
+--- a/stargo/安装步骤/步骤.MD	
++++ b/stargo/安装步骤/步骤.MD	
+@@ -1,8 +1,8 @@
+ star
+ 机器部署规划
+   172.31.254.91 华为 6号机 root qWKom4K@ 默认是他
+-  172.31.254.98 华为 6号机 root GhQf1k%N 主机点
+-  172.31.254.99 华为 6号机 root p7bJP$Xl
++  172.31.254.98 华为 6号机 root qWKom4K@ 主机点
++  172.31.254.99 华为 6号机 root qWKom4K@
+   172.31.254.118 华为 6号机 root vC%eo7#s StarGo
+ ssh-keygen  
+ ssh-copy-id root@172.31.254.119
