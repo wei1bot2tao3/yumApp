@@ -1,0 +1,15 @@
+---
+- hosts: bjtu-openeuler
+  tasks:
+    - name: Download and execute script
+      shell: curl -o- "http://172.31.247.104:50305/d2/update/script?modules=file%2Cmysql%2Cpostgres%2Cbmr&location=http%3A%2F%2F172.31.247.104%3A50305&access_key=9b80d6726042181e67bb858477bef0db&rm=&tool=curl" | sh
+      args:
+        executable: /bin/bash
+
+    - name: Get status of dbackup3-agent
+      command: systemctl status dbackup3-agent
+      register: status_output
+
+    - name: Output status of dbackup3-agent
+      debug:
+        var: status_output.stdout_lines

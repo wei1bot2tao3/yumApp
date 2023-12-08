@@ -1,0 +1,22 @@
+---
+- name: Replace Nginx HTTPS Certificate
+  hosts: bjtu-centos-https
+  become: true
+  tasks:
+    - name: Copy the new certificate files to the server
+      copy:
+        src: /root/op/bjtu.edu.cn.key
+        dest: /etc/nginx/cert/
+      notify: Reload Nginx
+
+    - name: Copy the new private key file to the server
+      copy:
+        src: /root/op/bjtu.edu.cn.pem
+        dest: /etc/nginx/cert/
+      notify: Reload Nginx
+
+  handlers:
+    - name: Reload Nginx
+      systemd:
+        name: nginx
+        state: restarted

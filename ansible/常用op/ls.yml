@@ -1,11 +1,11 @@
 ---
 - name: List files on target hosts
-  hosts: ypt # 指定要执行任务的主机组
+  hosts: bjtu-centos-https # 指定要执行任务的主机组
   become: yes
 
   tasks:
     - name: List files in /root/op/
-      shell: ls /root/op/
+      shell: ls /etc/nginx/cert/
       register: ls_output
 
     - name: Display ls command output
