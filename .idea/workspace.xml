@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c8dd6d01-0672-4303-b2c7-87a2d9290e51" name="更改" comment="done">
-      <change afterPath="$PROJECT_DIR$/安装文档/nezha-agent/nezha-agent" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/安装文档/nezha-agent/nezha-agent.service" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/安装文档/nezha-agent/nezha.sh" afterDir="false" />
+    <list default="true" id="c8dd6d01-0672-4303-b2c7-87a2d9290e51" name="更改" comment="Merge remote-tracking branch 'origin/nezha' into nezha&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/___.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/___.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/安装文档/安装.md" beforeDir="false" afterPath="$PROJECT_DIR$/安装文档/安装.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,6 +80,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Merge remote-tracking branch 'origin/nezha' into nezha&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge remote-tracking branch 'origin/nezha' into nezha&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
