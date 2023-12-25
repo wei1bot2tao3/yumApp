@@ -5,10 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="aa153eb3-e8ad-45c9-afde-4dcbc21fff93" name="更改" comment="Merge remote-tracking branch 'origin/nezha' into nezha&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml">
-      <change afterPath="$PROJECT_DIR$/ansible/hosts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ansible/常用op/backup.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ansible/hotos" beforeDir="false" afterPath="$PROJECT_DIR$/ansible/ssl.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ansible/常用op/ls.yml" beforeDir="false" afterPath="$PROJECT_DIR$/ansible/常用op/ls.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ansible/host" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ansible/常用op/status.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/514c1de4-a71b-48ab-89fc-d7e231cf04f8.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/514c1de4-a71b-48ab-89fc-d7e231cf04f8.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ansible/hosts" beforeDir="false" afterPath="$PROJECT_DIR$/ansible/hosts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ansible/常用op/backup.yml" beforeDir="false" afterPath="$PROJECT_DIR$/ansible/常用op/backup.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/常用app/mysql.md" beforeDir="false" afterPath="$PROJECT_DIR$/常用app/mysql.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +64,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Merge remote-tracking branch 'origin/nezha' into nezha&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge remote-tracking branch 'origin/nezha' into nezha&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
+    <MESSAGE value="done" />
+    <option name="LAST_COMMIT_MESSAGE" value="done" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

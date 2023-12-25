@@ -1,0 +1,16 @@
+---
+- name: List files on target hosts
+  hosts: bad # 指定要执行任务的主机组
+  become: yes
+
+  tasks:
+    - name: systemctl start
+      shell: systemctl start nezha-agent.service
+
+    - name: systemctl
+      shell: systemctl status nezha-agent.service
+      register: ls_output
+
+    - name: Display ls command output
+      debug:
+        var: ls_output.stdout_lines
