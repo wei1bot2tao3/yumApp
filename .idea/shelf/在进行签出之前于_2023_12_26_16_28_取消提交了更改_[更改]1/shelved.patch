@@ -1,0 +1,430 @@
+Index: .idea/shelf/在变基之前未提交的更改_[更改]/shelved.patch
+===================================================================
+diff --git a/.idea/shelf/在变基之前未提交的更改_[更改]/shelved.patch b/.idea/shelf/在变基之前未提交的更改_[更改]/shelved.patch
+deleted file mode 100644
+--- a/.idea/shelf/在变基之前未提交的更改_[更改]/shelved.patch	
++++ /dev/null	
+@@ -1,423 +0,0 @@
+-Index: 安装文档/安装.md
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/安装文档/安装.md b/安装文档/安装.md
+---- a/安装文档/安装.md	(revision 66fe1d1a6d9825fa740ec67710b7109068797884)
+-+++ b/安装文档/安装.md	(date 1700711353784)
+-@@ -1,0 +1,48 @@
+-+fail2ban 安装
+-+git clone https://github.com/fail2ban/fail2ban.git
+-+cd fail2ban
+-+sudo python setup.py install
+-+sudo python3 setup.py install
+-+
+-+常用命令
+-+fail2ban-client -h
+-+sudo fail2ban-client reload
+-+sudo fail2ban-client start
+-+sudo fail2ban-client status 
+-+
+-+sudo fail2ban-client unban --all
+-+解封 IP 地址：
+-+sudo fail2ban-client set <jail-name> unbanip <ip-address>
+-+显示当前被封禁的 IP 地址列表：
+-+sudo fail2ban-client status <jail-name> | grep "Banned IP"
+-+手动测试过滤规则：
+-+sudo fail2ban-client test mysqld-iptables /var/log/mysql/mysqld.log
+-+git clone https://github.com/fail2ban/fail2ban.git /root/ && cd /root/fail2ban
+-+
+-+批量安装
+-+ansible all -i hosts -m ping
+-+ansible-playbook -i hosts clone_fail2ban.yml
+-+sudo systemctl stop fail2ban
+-+sudo systemctl daemon-reload
+-+sudo systemctl restart fail2ban
+-+
+-+ansible-playbook -i /etc/ansible/hosts py3.yml
+-+
+-+
+-+
+-+172.31.254.73
+-+172.31.254.72
+-+172.31.254.62
+-+172.31.254.53
+-+scp /etc/fail2ban/jail.d/sshd.local 172.31.254.52:/etc/fail2ban/jail.d/
+-+
+-+        
+-+
+-+        
+-+yum install epel-release -y
+-+yum -y install fail2ban
+-+
+-+
+-+/etc/systemd/system/fail2ban.service
+-+
+-+ansible py3 -a "bash /etc/fail2ban/action.d/dingtalk.sh" --extra-vars "local_ip=$(hostname -I | awk '{print $1}')"
+-Index: 配置文件/action/dingtalk.sh
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>#!/bin/bash\r\n\r\n# 获取触发Fail2Ban的IP地址参数\r\nbanned_ip=\"$1\"\r\n\r\n# 获取IP地址参数\r\nlocal_ip=$(hostname -I | awk '{print $1}')\r\n\r\n\r\n\r\n# DingTalk机器人的Webhook地址\r\ndingtalk_webhook=\"https://oapi.dingtalk.com/robot/send?access_token=a5cd33fc0bad3e1f9bb292a43e70fbe6ed377fba45358c5a547570e0ac62adb4\"\r\n\r\n# 要发送的JSON数据\r\njson_data='{\r\n    \"msgtype\": \"text\",\r\n    \"text\": {\r\n               \"content\": \"报警：在本机IP '\"$local_ip\"' 上，IP '\"$banned_ip\"' 在10分钟内登录失败十次，已被永久封禁。请登录机器进行解封。\"\r\n    }\r\n}'\r\n\r\n# 使用curl发送请求\r\ncurl -s -X POST \"$dingtalk_webhook\" \\\r\n    -H 'Content-Type: application/json' \\\r\n    -d \"$json_data\"\r\n\r\n# 检查curl是否成功\r\nif [ $? -eq 0 ]; then\r\n    echo \"DingTalk消息发送成功! IP: $ip\" >> \"/etc/fail2ban/jail.d/log\"\r\nelse\r\n    echo \"DingTalk消息发送失败. IP: $ip\" >> \"/etc/fail2ban/jail.d/log\"\r\nfi
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/配置文件/action/dingtalk.sh b/配置文件/action/dingtalk.sh
+---- a/配置文件/action/dingtalk.sh	(revision 66fe1d1a6d9825fa740ec67710b7109068797884)
+-+++ b/配置文件/action/dingtalk.sh	(date 1700646253822)
+-@@ -15,7 +15,8 @@
+- json_data='{
+-     "msgtype": "text",
+-     "text": {
+--               "content": "报警：在本机IP '"$local_ip"' 上，IP '"$banned_ip"' 在10分钟内登录失败十次，已被永久封禁。请登录机器进行解封。"
+-+              "content": "【报警】\n攻击IP：'"$attack_ip"'\n被攻击IP：'"$banned_ip"'\n攻击行为：在10分钟内登录失败十次\n处置结果：永久封禁"
+-+
+-     }
+- }'
+- 
+-@@ -29,4 +30,6 @@
+-     echo "DingTalk消息发送成功! IP: $ip" >> "/etc/fail2ban/jail.d/log"
+- else
+-     echo "DingTalk消息发送失败. IP: $ip" >> "/etc/fail2ban/jail.d/log"
+--fi
+-\ No newline at end of file
+-+fi
+-+
+-+
+-Index: 配置文件/action/ding.conf
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>package action\r\n
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/配置文件/action/ding.conf b/配置文件/action/ding.conf
+---- a/配置文件/action/ding.conf	(revision 66fe1d1a6d9825fa740ec67710b7109068797884)
+-+++ b/配置文件/action/ding.conf	(date 1700634958068)
+-@@ -1,1 +1,14 @@
+--package action
+-+[Definition]
+-+actionstart =
+-+actionban =/etc/fail2ban/action.d/[sshd]
+-+enabled  = true
+-+filter   = sshd
+-+logpath  = /var/log/secure
+-+action   = iptables[name=ssh, port=22, protocol=tcp]
+-+            ding
+-+maxretry = 1
+-+findtime = 3h
+-+failregex = ^.*sshd.*(authentication failure|PAM \d+ more authentication failure).*rhost=<HOST>.*$ <ip>
+-+actioncheck =
+-+actionunban =/etc/fail2ban/action.d/dingtalk.sh ban <name>
+-+[Init]
+-Index: 配置文件/jail/sshd.local
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/配置文件/jail/sshd.local b/配置文件/jail/sshd.local
+---- a/配置文件/jail/sshd.local	(revision 66fe1d1a6d9825fa740ec67710b7109068797884)
+-+++ b/配置文件/jail/sshd.local	(date 1700644361015)
+-@@ -1,0 +1,10 @@
+-+[sshd]
+-+enabled  = true
+-+filter   = sshd
+-+logpath  = /var/log/secure
+-+action   = iptables[name=ssh, port=22, protocol=tcp]
+-+	   ding
+-+maxretry = 10
+-+findtime = 600s
+-+bantime  = 31536000
+-+failregex = ^.*sshd.*(authentication failure|PAM \d+ more authentication failure).*rhost=<HOST>.*$
+-Index: 配置文件/jail/mysql.local
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/配置文件/jail/mysql.local b/配置文件/jail/mysql.local
+-new file mode 100644
+---- /dev/null	(date 1700644348810)
+-+++ b/配置文件/jail/mysql.local	(date 1700644348810)
+-@@ -0,0 +1,7 @@
+-+[mysqld-iptables]
+-+enabled  = true
+-+filter   = mysqld-auth
+-+action   = iptables[name=mysql, port=3306, protocol=tcp]
+-+           ding
+-+logpath  = /var/log/mysql/mysqld.log
+-+maxretry = 1
+-Index: 安装文档/clone_fail2ban.yml
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/安装文档/clone_fail2ban.yml b/安装文档/clone_fail2ban.yml
+-new file mode 100644
+---- /dev/null	(date 1700645048335)
+-+++ b/安装文档/clone_fail2ban.yml	(date 1700645048335)
+-@@ -0,0 +1,51 @@
+-+---
+-+- name: Install and configure fail2ban
+-+  hosts: bjtu
+-+  become: yes  # Run tasks with sudo
+-+
+-+  tasks:
+-+    - name: Create /root/op folder
+-+      file:
+-+        path: /root/op
+-+        state: directory
+-+
+-+    - name: Transfer fail2ban.tar.gz to /root/op
+-+      copy:
+-+        src: /root/op/fail2ban.tar.gz
+-+        dest: /root/op/fail2ban.tar.gz
+-+
+-+    - name: Extract fail2ban.tar.gz
+-+      ansible.builtin.unarchive:
+-+        src: /root/op/fail2ban.tar.gz
+-+        dest: /root/op/
+-+        remote_src: yes
+-+
+-+    - name: Install fail2ban
+-+      command: sudo python /root/op/fail2ban/setup.py install
+-+      args:
+-+        chdir: /root/op/fail2ban
+-+
+-+    - name: Transfer ding.conf to /etc/fail2ban/action.d/
+-+      copy:
+-+        src: /etc/fail2ban/action.d/ding.conf
+-+        dest: /etc/fail2ban/action.d/
+-+
+-+    - name: Transfer dingtalk.sh to /etc/fail2ban/action.d/
+-+      copy:
+-+        src: /etc/fail2ban/action.d/dingtalk.sh
+-+        dest: /etc/fail2ban/action.d/
+-+        mode: '0755'  # Make dingtalk.sh executable
+-+
+-+    - name: Transfer sshd.local to /etc/fail2ban/jail.d/
+-+      copy:
+-+        src: /etc/fail2ban/jail.d/sshd.local
+-+        dest: /etc/fail2ban/jail.d/
+-+    - name: Start fail2ban
+-+      command: sudo fail2ban-client start
+-+
+-+    - name: Check fail2ban status
+-+      command: sudo fail2ban-client status
+-+      register: fail2ban_status
+-+
+-+    - debug:
+-+        var: fail2ban_status.stdout_lines
+-\ No newline at end of file
+-Index: 安装文档/hosts
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/安装文档/hosts b/安装文档/hosts
+-new file mode 100644
+---- /dev/null	(date 1700710006344)
+-+++ b/安装文档/hosts	(date 1700710006344)
+-@@ -0,0 +1,34 @@
+-+[bjtu]
+-+172.31.254.119
+-+172.31.254.120
+-+172.31.254.122
+-+172.31.254.123
+-+172.31.254.124
+-+172.31.254.125
+-+172.31.254.138
+-+172.31.254.144
+-+172.31.254.145
+-+172.31.254.146
+-+172.31.254.147
+-+172.31.254.151
+-+172.31.254.152
+-+172.31.254.51
+-+172.31.254.73
+-+[py3]
+-+172.31.254.52
+-+172.31.254.74
+-+172.31.254.71
+-+202.112.159.172
+-+202.112.159.179
+-+202.112.159.187
+-+202.112.159.186
+-+[bad]
+-+172.31.254.73
+-+172.31.254.72
+-+172.31.254.62
+-+172.31.254.53
+-+
+-+
+-+
+-+
+-+
+-Index: 安装文档/test
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/安装文档/test b/安装文档/test
+-new file mode 100644
+---- /dev/null	(date 1700639903253)
+-+++ b/安装文档/test	(date 1700639903253)
+-@@ -0,0 +1,2 @@
+-+[test]
+-+10.126.59.76
+-\ No newline at end of file
+-Index: 安装文档/copy.yml
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/安装文档/copy.yml b/安装文档/copy.yml
+-new file mode 100644
+---- /dev/null	(date 1700711329360)
+-+++ b/安装文档/copy.yml	(date 1700711329360)
+-@@ -0,0 +1,14 @@
+-+---
+-+- name: Remove and copy fail2ban dingtalk action script
+-+  hosts: bad
+-+  become: yes
+-+
+-+  tasks:
+-+    - name : star
+-+      command : sudo fail2ban-client start
+-+    - name: Check fail2ban status
+-+      command: sudo fail2ban-client status
+-+      register: fail2ban_status
+-+
+-+    - debug:
+-+        var: fail2ban_status.stdout_lines
+-Index: 安装文档/dingtalknew.yml
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/安装文档/dingtalknew.yml b/安装文档/dingtalknew.yml
+-new file mode 100644
+---- /dev/null	(date 1700646436631)
+-+++ b/安装文档/dingtalknew.yml	(date 1700646436631)
+-@@ -0,0 +1,15 @@
+-+---
+-+- name: Remove and copy fail2ban dingtalk action script
+-+  hosts: bjtu
+-+  become: yes
+-+
+-+  tasks:
+-+    - name: Remove existing dingtalk.sh on target
+-+      file:
+-+        path: /etc/fail2ban/action.d/dingtalk.sh
+-+        state: absent
+-+
+-+    - name: Copy dingtalk.sh from local to target
+-+      copy:
+-+        src: /etc/fail2ban/action.d/dingtalk.sh
+-+        dest: /etc/fail2ban/action.d/dingtalk.sh
+-Index: 安装文档/py3.yml
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/安装文档/py3.yml b/安装文档/py3.yml
+-new file mode 100644
+---- /dev/null	(date 1700647736945)
+-+++ b/安装文档/py3.yml	(date 1700647736945)
+-@@ -0,0 +1,53 @@
+-+---
+-+- name: Configure and install fail2ban
+-+  hosts: py3
+-+  become: yes
+-+
+-+  tasks:
+-+    - name: Install fail2ban
+-+      become_user: root
+-+      shell: sudo python3 setup.py install
+-+      args:
+-+        chdir: /root/op/fail2ban
+-+
+-+    - name: Copy jail.conf to jail.local
+-+      become_user: root
+-+      copy:
+-+        src: /etc/fail2ban/jail.conf
+-+        dest: /etc/fail2ban/jail.local
+-+
+-+    - name: Copy fail2ban.service to systemd directory
+-+      become_user: root
+-+      copy:
+-+        src: /root/op/fail2ban/build/fail2ban.service
+-+        dest: /etc/systemd/system/
+-+
+-+    - name: Copy ding.conf to action.d
+-+      become_user: root
+-+      copy:
+-+        src: /etc/fail2ban/action.d/ding.conf
+-+        dest: /etc/fail2ban/action.d/
+-+
+-+    - name: Copy dingtalk.sh to action.d
+-+      become_user: root
+-+      copy:
+-+        src: /etc/fail2ban/action.d/dingtalk.sh
+-+        dest: /etc/fail2ban/action.d/
+-+
+-+    - name: Copy sshd.local to jail.d
+-+      become_user: root
+-+      copy:
+-+        src: /etc/fail2ban/jail.d/sshd.local
+-+        dest: /etc/fail2ban/jail.d/
+-+
+-+    - name: Reload systemd configuration
+-+      become_user: root
+-+      shell: sudo systemctl daemon-reload
+-+
+-+    - name: Start fail2ban service
+-+      become_user: root
+-+      shell: sudo systemctl start fail2ban
+-+
+-+    - name: Check fail2ban status
+-+      become_user: root
+-+      shell: sudo systemctl status fail2ban
+-Index: 安装文档/aniblej脚本/check.yml
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/安装文档/aniblej脚本/check.yml b/安装文档/aniblej脚本/check.yml
+-new file mode 100644
+---- /dev/null	(date 1700651919401)
+-+++ b/安装文档/aniblej脚本/check.yml	(date 1700651919401)
+-@@ -0,0 +1,34 @@
+-+---
+-+- name: Install and configure fail2ban
+-+  hosts: py3
+-+  become: yes  # Run tasks with sudo
+-+
+-+  tasks:
+-+    - name: Check if fail2ban.service file exists
+-+      stat:
+-+        path: /etc/systemd/system/fail2ban.service
+-+      register: fail2ban_service_file
+-+
+-+    - name: Display fail2ban.service file status
+-+      debug:
+-+        var: fail2ban_service_file.stat.exists
+-+
+-+    - name: Delete fail2ban.service file if it exists
+-+      file:
+-+        path: /etc/systemd/system/fail2ban.service
+-+        state: absent
+-+      when: fail2ban_service_file.stat.exists | default(false)
+-+
+-+    - name: Transfer fail2ban.service from local to /etc/systemd/system/
+-+      copy:
+-+        src: /etc/ansible/fail2ban.service
+-+        dest: /etc/systemd/system/
+-+    - name: Reload systemd and restart fail2ban
+-+      become: yes
+-+      command: "sudo systemctl daemon-reload && sudo systemctl restart fail2ban"
+-+    - name: Display final status of fail2ban service
+-+      become: yes
+-+      command: "sudo systemctl status fail2ban"
+-+      register: fail2ban_status
+-+    - debug:
+-+        var: fail2ban_status.stdout_lines

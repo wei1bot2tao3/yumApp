@@ -1,0 +1,48 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"ALL\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"c8dd6d01-0672-4303-b2c7-87a2d9290e51\" name=\"更改\" comment=\"Merge remote-tracking branch 'origin/nezha' into nezha&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/___.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/shelf/___.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/安装文档/安装.md\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/安装文档/安装.md\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Go File\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"GOROOT\" url=\"file://$USER_HOME$/sdk/go1.21.4\" />\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"PUSH_TAGS\">\r\n      <GitPushTagMode>\r\n        <option name=\"argument\" value=\"--tags\" />\r\n        <option name=\"title\" value=\"All\" />\r\n      </GitPushTagMode>\r\n    </option>\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"StarRocks\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 2\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2YWH4IB6hhH0JNtBvKATR6F3x1z\" />\r\n  <component name=\"ProjectLevelVcsManager\">\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,\r\n    &quot;DefaultGoTemplateProperty&quot;: &quot;Go File&quot;,\r\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.go.modules.automatic.dependencies.download&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,\r\n    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,\r\n    &quot;git-widget-placeholder&quot;: &quot;fail2ban&quot;,\r\n    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,\r\n    &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,\r\n    &quot;last_opened_file_path&quot;: &quot;C:/Users/BJTU-tt&quot;,\r\n    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;\r\n  },\r\n  &quot;keyToStringList&quot;: {\r\n    &quot;DatabaseDriversLRU&quot;: [\r\n      &quot;mysql&quot;\r\n    ]\r\n  }\r\n}</component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"应用程序级\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <option name=\"ADD_EXTERNAL_FILES_SILENTLY\" value=\"true\" />\r\n    <MESSAGE value=\"Merge remote-tracking branch 'origin/nezha' into nezha&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Merge remote-tracking branch 'origin/nezha' into nezha&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml\" />\r\n  </component>\r\n  <component name=\"VgoProject\">\r\n    <settings-migrated>true</settings-migrated>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	
++++ b/.idea/workspace.xml	
+@@ -5,8 +5,6 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="c8dd6d01-0672-4303-b2c7-87a2d9290e51" name="更改" comment="Merge remote-tracking branch 'origin/nezha' into nezha&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml">
+-      <change beforePath="$PROJECT_DIR$/.idea/shelf/___.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/___.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/安装文档/安装.md" beforeDir="false" afterPath="$PROJECT_DIR$/安装文档/安装.md" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+Index: 安装文档/安装.md
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>fail2ban 安装\r\ngit clone https://github.com/fail2ban/fail2ban.git\r\ncd fail2ban\r\n    sudo python setup.py install\r\nsudo python3 setup.py install\r\n\r\n常用命令\r\nfail2ban-client -h\r\nsudo fail2ban-client reload\r\nsudo fail2ban-client start\r\nsudo fail2ban-client status \r\n\r\nsudo fail2ban-client unban --all\r\n解封 IP 地址：\r\nsudo fail2ban-client set <jail-name> unbanip <ip-address>\r\n显示当前被封禁的 IP 地址列表：\r\nsudo fail2ban-client status <jail-name> | grep \"Banned IP\"\r\n手动测试过滤规则：\r\nsudo fail2ban-client test mysqld-iptables /var/log/mysql/mysqld.log\r\ngit clone https://github.com/fail2ban/fail2ban.git /root/ && cd /root/fail2ban\r\n\r\n批量安装\r\nansible all -i hosts -m ping\r\nansible-playbook -i hosts clone_fail2ban.yml\r\nsudo systemctl stop fail2ban\r\nsudo systemctl daemon-reload\r\nsudo systemctl restart fail2ban\r\n\r\nansible-playbook -i /etc/ansible/hosts py3.yml\r\n\r\n\r\n\r\n172.31.254.73\r\n172.31.254.72\r\n172.31.254.62\r\n172.31.254.53\r\nscp /etc/fail2ban/jail.d/sshd.local 172.31.254.52:/etc/fail2ban/jail.d/\r\n\r\n        \r\n\r\n        \r\nyum install epel-release -y\r\n    yum -y install fail2ban\r\n\r\n\r\n/etc/systemd/system/fail2ban.service\r\n\r\nansible py3 -a \"bash /etc/fail2ban/action.d/dingtalk.sh\" --extra-vars \"local_ip=$(hostname -I | awk '{print $1}')\"\r\n\r\nsudo fail2ban-client set sshd banip 10.126.62.26\r\nsudo fail2ban-client set <JAIL> unbanip <IP_ADDRESS>\r\n/etc/systemd/system/fail2ban.service\r\n[Unit]\r\nDescription=Fail2Ban Service\r\nDocumentation=man:fail2ban(1)\r\nAfter=network.target iptables.service firewalld.service ip6tables.service ipset.service nftables.service\r\nPartOf=iptables.service firewalld.service ip6tables.service ipset.service nftables.service\r\n\r\n[Service]\r\nType=simple\r\nEnvironment=\"PYTHONNOUSERSITE=1\"\r\nExecStartPre=/bin/mkdir -p /run/fail2ban\r\nExecStart=/usr/local/bin/fail2ban-server -xf start\r\n# if should be logged in systemd journal, use following line or set logtarget to sysout in fail2ban.local\r\n# ExecStart=/usr/local/bin/fail2ban-server -xf --logtarget=sysout start\r\nExecStop=/usr/local/bin/fail2ban-client stop\r\nExecReload=/usr/local/bin/fail2ban-client reload\r\nPIDFile=/run/fail2ban/fail2ban.pid\r\nRestart=on-failure\r\nRestartPreventExitStatus=0 255\r\n\r\n[Install]\r\nWantedBy=multi-user.target\r\n记得修改配置文件\r\n[root@localhost bin]# fail\r\nfail2ban-client     fail2ban-regex      fail2ban-testcases  \r\nfail2ban-python     fail2ban-server     faillock 
+===================================================================
+diff --git a/安装文档/安装.md b/安装文档/安装.md
+--- a/安装文档/安装.md	
++++ b/安装文档/安装.md	
+@@ -10,6 +10,9 @@
+ sudo fail2ban-client start
+ sudo fail2ban-client status 
+ 
++[root@euler-9492 jail.d]# fail2ban-regex test.log  /etc/fail2ban/filter.d/sshd.conf
++
++
+ sudo fail2ban-client unban --all
+ 解封 IP 地址：
+ sudo fail2ban-client set <jail-name> unbanip <ip-address>
+@@ -74,4 +77,7 @@
+ 记得修改配置文件
+ [root@localhost bin]# fail
+ fail2ban-client     fail2ban-regex      fail2ban-testcases  
+-fail2ban-python     fail2ban-server     faillock 
+\ No newline at end of file
++fail2ban-python     fail2ban-server     faillock 
++
++
++^Failed (?:<F-NOFAIL>publickey</F-NOFAIL>|\S+) for (?P<cond_inv>invalid user )?<F-USER>(?P<cond_user>\S+)|(?(cond_inv)(?:(?! from ).)*?|[^:]+)</F-USER> from <HOST>(?: (?:port \d+|on \S+)){0,2}(?: ssh\d*)?(?(cond_user): |(?:(?:(?! from ).)*)$)
+\ No newline at end of file
